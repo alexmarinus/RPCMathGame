@@ -1,0 +1,53 @@
+Marinus Alexandru
+Grupa 342C1
+
+Tema 1 SPRC - RPC
+
+___Modificari aduse___
+
+Mentionez ca in implementarea clientului si serverului de RPC
+am pornit de la scheletul de cod asociat laboratorului, asupra
+caruia am efectuat modificarile necesare comunicatiei conform
+cerintei. In fisierul math_game.x am realizat definirea structurilor
+de date principale utilizate: structura pentru cererea efectuata de
+client si cea pentru raspuns. Structura pt cerere are ca si unic camp
+numarul preluat din fisierul de intrare, iar structura pentru raspuns
+are ca si campuri: valoarea de adevar a raspunsului (YES/NO), cel
+mai apropiat numar prim congruent cu 4 modulo 1 (determinat ulterior la server)
+si cele doua numere care satisfac conditia ca suma patratelor acestora sa fie
+egala cu numarul prim determinat anterior.
+Pentru posibilitatea lucrului cu numere intregi pe 64 de biti, am inclus 
+headerele inttypes.h si stdint.h .
+
+___Clientul____
+
+Clientul initiaza o conexiune TCP pe baza programul si a versiunii definite in
+fisierul math_game.x . Pentru fiecare numar citit din fisierul de intrare,
+clientul isi modifica structura local declarata astfel incat sa contina numarul
+citit si apeleaza procedura corespunzatoare serverului pentru obtinerea structurii
+cu datele necesare jocului. In caz de succes, rezultatul este scris in fisierul
+de iesire. In caz contrar, programul client se incheie cu codul -2.
+
+
+___Serverul___
+
+Serverul are ca principal rol calculul efectiv, bazat pe functiile
+is_prime_64b, square_root_64b si closest_prime_number_game.
+Prima functie determina radacina patrata a unui numar intreg pe 64 de biti.
+Cea de-a doua functie determina daca un numar intreg pe 64 de biti este sau nu
+prim. Verificarea se face prin parcurgerea mai putinor divizori decat in
+algoritmul clasic. Mai exact, in cadrul functiei, sunt verificate cazurile de
+baza si parcurse doar numerele de forma "multiplu de 6 +/- 1" pentru verificarea
+divizbilitatii. Cea de-a treia functie returneaza cel mai apropiat numar prim
+convergent cu 1 modulo 4 (4 * k + 1) fata de numarul furnizat ca parametru.
+Daca exista doua astfel de numere egal departate de acesta, va fi ales numarul
+mai mare.
+
+Functia svc de la finalul fisierului returneaza referinta la structura de date
+utilizata ca raspuns si completata cu informatiile cerute de client.
+
+
+___Formatul fisierului de intrare___
+
+Pe prima linie se gaseste numarul de inputuri (cereri de efectuat), iar pe
+urmatoarele linii se gasesc numerele.
